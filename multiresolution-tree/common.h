@@ -2,6 +2,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#include <signal.h>
 #include "doctest.h"
 #include "heap.h"
 #include "sexpr.h"
@@ -19,6 +20,10 @@
 #include <unordered_map>
 #include <vector>
 #include <optional>
+#include <math.h>
+#include <float.h>
+#include <string.h>
+#include <limits.h>
 #undef min
 #undef max
 #undef near
@@ -33,6 +38,7 @@
 #define AUGMENTER(...) unused, __VA_ARGS__
 #define NARGS(...) NARGS_1(AUGMENTER(__VA_ARGS__))
 #else // Others
+#define FORCEINLINE __attribute__((always_inline))
 #define NARGS(...) __NARGS(0, ## __VA_ARGS__, 5,4,3,2,1,0)
 #define __NARGS(_0,_1,_2,_3,_4,_5,N,...) N
 #endif
@@ -1502,7 +1508,9 @@ struct arithmetic_coder {
 #define erfinv_d2 1.637067800
 #define erfinv_d1 3.543889200
 #define erfinv_d0 1
+#ifndef M_PI
 #define M_PI 3.141592653589793238462643383279502884197169399375105820974944
+#endif
 
 inline double erfinv (double x) {
   double x2, r, y;
@@ -2663,7 +2671,7 @@ struct traits<f64> {
   static constexpr f64 Max = DBL_MAX;
 };
 
-template <typename t> FORCEINLINE t Max(const t& a, const t& b) { return a < b ? b : a; }
+template <typename t> t Max(const t& a, const t& b) { return a < b ? b : a; }
 
 /*
 For double-precision, the returned exponent is between [-1023, 1024] (-1023 if 0, -1022 if denormal, the bias is 1023)

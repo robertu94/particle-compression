@@ -16,6 +16,8 @@
 #include <algorithm>
 
 static std::vector<particle_int> OutputParticles;
+INLINE u64
+Pack3i64(const vec3i& V) { return u64(V.x & 0x1FFFFF) + (u64(V.y & 0x1FFFFF) << 21) + (u64(V.z & 0x1FFFFF) << 42); }
 
 static bbox
 ComputeBoundingBox(const std::vector<particle>& Particles) {
@@ -5120,8 +5122,6 @@ CompressBlockFast() {
   }
 }
 
-INLINE u64
-Pack3i64(const vec3i& V) { return u64(V.x & 0x1FFFFF) + (u64(V.y & 0x1FFFFF) << 21) + (u64(V.z & 0x1FFFFF) << 42); }
 std::vector<particle_int>
 RemoveRepeatedParticles(std::vector<particle_int>& Input) {
   std::vector<particle_int> Output;

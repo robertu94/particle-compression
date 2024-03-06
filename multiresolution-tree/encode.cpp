@@ -31,8 +31,8 @@ WriteBlockNew(bitstream* Bs, u64 BlockIdx) {
 
 void
 FlushBlocksToFilesNew() {
-  printf("block stream size = %lld\n", Size(BlockStream));
-  printf("arithmetic stream size = %lld\n", Size(Coder.BitStream));
+  printf("block stream size = %ld\n", Size(BlockStream));
+  printf("arithmetic stream size = %ld\n", Size(Coder.BitStream));
   printf("number of encoded nodes = %d\n", EncodedNodesCount);
   /* write the regular blocks */
   WriteBlockNew(&BlockStream, CurrBlock);
